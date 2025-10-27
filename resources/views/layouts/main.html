@@ -1,0 +1,223 @@
+@if(data)
+    <script type="application/json" id="server-data">
+        {!! json_encode(data) !!}
+    </script>
+@endif
+<div x-data="dashboardComponent()" >
+    <!-- Mobile Sidebar Backdrop -->
+    <div
+        x-cloak
+        x-show="mobileSidebarOpen"
+        x-transition:enter="transition-opacity ease-linear duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition-opacity ease-linear duration-300"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        @click="mobileSidebarOpen = false"
+        class="fixed inset-0 z-40 bg-black/50 lg:hidden"
+    ></div>
+
+    <!-- Sidebar -->
+    <aside
+        :class="{
+            'translate-x-0': mobileSidebarOpen,
+            '-translate-x-full': !mobileSidebarOpen
+        }"
+        class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-stone-900 border-r transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col"
+    >
+        <!-- Sidebar Header -->
+        <div class="flex h-14 items-center justify-between px-4 border-b">
+            <div class="flex items-center space-x-3">
+                @include('components/logo')
+            </div>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <nav class="flex-1 overflow-y-auto p-3">
+            <ul class="space-y-0.5 side_nav">
+                <li>
+                    <a
+                        @click.prevent="$store.routerStore.navigate('/')"
+                        :class="{ 'active': $store.routerStore.currentRoute === '/' }"
+                    >
+                        {{ icon('dashboard', css_class='h-5 w-5 flex-shrink-0') }}
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        @click.prevent="$store.routerStore.navigate('/jobs')"
+                        :class="{ 'active': $store.routerStore.currentRoute === '/jobs' }"
+                    >
+                        {{ icon('briefcase', css_class='h-5 w-5 flex-shrink-0') }}
+                        <span>Jobs</span>
+                    </a>
+                </li>
+                <li>
+                    <a
+                        @click.prevent="$store.routerStore.navigate('/workers')"
+                        :class="{ 'active': $store.routerStore.currentRoute === '/workers' }"
+                    >
+                        {{ icon('briefcase', css_class='h-5 w-5 flex-shrink-0') }}
+                        <span>Workers</span>
+                    </a>
+                </li>
+                <li>
+                    <a
+                        @click.prevent="$store.routerStore.navigate('/files')"
+                        :class="{ 'active': $store.routerStore.currentRoute === '/files' }"
+                    >
+                        {{ icon('download', css_class='h-5 w-5 flex-shrink-0') }}
+                        <span>Files</span>
+                    </a>
+                </li>
+                <li class="!mt-4 pt-4 border-t border-stone-200 dark:border-stone-700">
+                    <a
+                        @click.prevent="$store.routerStore.navigate('/settings')"
+                        :class="{ 'active': $store.routerStore.currentRoute === '/settings' }"
+                    >
+                        {{ icon('settings', css_class='h-5 w-5 flex-shrink-0') }}
+                        <span>Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a  @click.prevent="$store.authStore.logout()">
+                        {{ icon('logout', css_class='h-5 w-5 flex-shrink-0') }}
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- User Profile - Always at Bottom -->
+        <div class="border-t p-3 mt-auto">
+            <div class="flex items-center space-x-3 p-2">
+                <img
+                    src="https://ui-avatars.com/api/?name=John+Doe&background=78716c&color=fff"
+                    alt="Profile"
+                    class="h-9 w-9 rounded-full flex-shrink-0"
+                >
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-stone-900 dark:text-stone-100 truncate">John Doe</p>
+                    <p class="text-xs text-stone-500 dark:text-stone-400 truncate">john@example.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="lg:pl-64 min-h-screen">
+        <!-- Top Navigation Bar -->
+        <header class="sticky top-0 z-30 bg-white dark:bg-stone-900 border-b">
+            <div class="flex h-14 items-center justify-between px-4 sm:px-6">
+                <div class="flex items-center space-x-3">
+                    <!-- Mobile Menu Button -->
+                    <button
+                        @click="mobileSidebarOpen = true"
+                        class="lg:hidden p-1.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
+                    >
+                        {{ icon('menu-2', css_class='h-5 w-5 flex-shrink-0') }}
+                    </button>
+
+                    <!-- Breadcrumb -->
+                    @include('components/breadcrumb')
+                </div>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center space-x-2">
+                    <!-- Dark Mode Toggle -->
+                    @include('components/switch_btn')
+                    <!-- Notifications -->
+                    <div class="relative">
+                        <button
+                            @click="notificationDropdown = !notificationDropdown"
+                            class="kt-btn kt-btn-ghost p-2 flex"
+                        >
+                            {{ icon('bell-ringing', css_class='h-5 w-5 flex-shrink-0') }}
+                            <span class="absolute top-1 right-1 h-2 w-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <!-- Notification Dropdown -->
+                        <div
+                            x-cloak
+                            x-show="notificationDropdown"
+                            @click.away="notificationDropdown = false"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95"
+                            class="absolute right-0 mt-2 w-72 bg-white dark:bg-stone-900 rounded-lg shadow-lg border overflow-hidden"
+                        >
+                            <div class="px-4 py-3 border-b">
+                                <h3 class="text-sm font-semibold">Notifications</h3>
+                            </div>
+                            <div class="max-h-64 overflow-y-auto">
+                            </div>
+                            <div class="px-4 py-2 border-t">
+                                <a href="#" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">View all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile -->
+                    <div class="relative">
+                        <button
+                            @click="profileDropdown = !profileDropdown"
+                            class="flex items-center space-x-2 p-1.5 rounded-lg hover:bg-stone-100 dark:hover:bg-stone-800"
+                        >
+                            <img
+                                src="https://ui-avatars.com/api/?name=John+Doe&background=78716c&color=fff"
+                                alt="Profile"
+                                class="h-7 w-7 rounded-full"
+                            >
+                            <span class="hidden sm:block text-sm">John Doe</span>
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <!-- Profile Dropdown -->
+                        <div
+                            x-cloak
+                            x-show="profileDropdown"
+                            @click.away="profileDropdown = false"
+                            x-transition:enter="transition ease-out duration-100"
+                            x-transition:enter-start="transform opacity-0 scale-95"
+                            x-transition:enter-end="transform opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-75"
+                            x-transition:leave-start="transform opacity-100 scale-100"
+                            x-transition:leave-end="transform opacity-0 scale-95"
+                            class="absolute right-0 mt-2 w-48 bg-white dark:bg-stone-900 rounded-lg shadow-lg border overflow-hidden"
+                        >
+                            <div class="px-4 py-2 border-b">
+                                <p class="text-sm font-semibold">John Doe</p>
+                                <p class="text-xs text-stone-500 dark:text-stone-400">john@example.com</p>
+                            </div>
+                            <div class="border-t">
+                                <a href="#" @click="$store.authStore.logout()" class="block px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors">Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="p-4 sm:p-6 transition-all duration-300"
+              :style="$store.musicPlayer.currentTrack && $store.musicPlayer.showPlaylist ? 'padding-bottom: 450px' : ($store.musicPlayer.currentTrack ? 'padding-bottom: 150px' : 'padding-bottom: 1rem')">
+            <!-- Page Header -->
+            <div class="">
+                @yield('page_title')
+                @yield('page_sub_title')
+            </div>
+            @yield('main_content')
+        </main>
+    </div>
+
+    <!-- Music Player -->
+    @include('components/music_player')
+</div>

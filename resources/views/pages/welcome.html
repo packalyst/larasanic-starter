@@ -1,0 +1,59 @@
+<!-- Main Layout Wrapper -->
+<div class="min-h-screen flex">
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col">
+        @include('components/header')
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto bg-background dark:bg-background">
+            <div class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                <!-- Modern Hero with Animated Background -->
+                <section class="relative  flex items-center justify-center overflow-hidden  ">
+                    <div class="container relative">
+                        <div class="max-w-5xl mx-auto">
+                            <!-- Main Headline with gradient -->
+                            <h1 class="text-center">
+                                <span class="block text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight">
+                                    <span class="block mb-2">The platform that</span>
+                                    <span class="relative">
+                                        <span class="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient" style="background-size: 300%;">
+                                            revolutionizes
+                                        </span>
+                                        <svg class="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 100 8" preserveAspectRatio="none">
+                                            <path d="M0 7 Q 25 0, 50 7 T 100 7" stroke="currentColor" class="text-primary/30" stroke-width="2" fill="none"/>
+                                        </svg>
+                                    </span>
+                                </span>
+                                <span class="block text-4xl sm:text-5xl lg:text-6xl font-bold mt-4 text-muted-foreground">
+                                    how teams build software
+                                </span>
+                            </h1>
+                            <!-- Subheadline -->
+                            <p class="text-center text-xl text-muted-foreground mt-8 max-w-3xl mx-auto leading-relaxed">
+                                Ship 10x faster with AI-powered development, real-time collaboration, and enterprise-grade security.
+                                Join the future of software development.
+                            </p>
+                            <!-- CTA Section with trust indicators -->
+                            <div class="mt-10 flex flex-col items-center">
+                                <div class="flex justify-between items-start gap-4 mb-6">
+                                    <button @click="$store.routerStore.navigate('/register')" class="kt-btn kt-btn-primary">
+                                        <span class="relative">Start Building Free</span>
+                                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                        </svg>
+                                    </button>
+                                    <button @click="$store.routerStore.navigate('/login')" class="kt-btn kt-btn-secondary">
+                                        <svg class="w-5 h-5 mr-2 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                        <span>Login</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        @include('components/footer')
+    </div>
+</div>

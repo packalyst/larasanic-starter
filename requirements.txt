@@ -1,0 +1,8 @@
+# Larasanic Framework
+# Install the framework directly from GitHub
+git+https://github.com/packalyst/larasanic-framework.git
+
+# Optional: If you need additional packages for your application, add them below
+# Example:
+# pillow>=10.0.0
+# pandas>=2.0.0

@@ -1,0 +1,119 @@
+<!-- Main Container -->
+<div class="flex min-h-screen" x-data="@yield('alpine_component', 'loginComponent()')">
+    <!-- Left Side - Form -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8 relative overflow-hidden">
+        <!-- Mobile only animated blobs -->
+        <div class="absolute inset-0 lg:hidden">
+            <div class="absolute -top-20 -left-20 w-40 h-40 bg-stone-300 dark:bg-stone-700 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-20 animate-blob"></div>
+            <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-stone-400 dark:bg-stone-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+            <div class="absolute top-0 -right-10 w-40 h-40 bg-stone-200 dark:bg-stone-800 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+        </div>
+
+        <div class="w-full max-w-md relative z-10">
+            <!-- Logo -->
+            <div class="flex items-center justify-center mb-8">
+                @include('components/logo')
+            </div>
+            <!-- Form Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-foreground mb-3">
+                    @yield('form_title', 'Welcome back')
+                </h1>
+                <p class="text-base text-muted-foreground mb-4">
+                    @yield('form_subtitle', 'Enter your credentials to access your account')
+                </p>
+                <div class="flex items-center justify-center">
+                    @yield('form_footer')
+                </div>
+            </div>
+            <!-- Divider -->
+            <div class="relative mb-6">
+                <div class="absolute inset-0 flex items-center">
+                    <div class="w-full border-t border-border"></div>
+                </div>
+                <div class="relative flex justify-center text-xs">
+                    <span class="px-2 bg-stone-50 dark:bg-stone-950 text-stone-500">Or continue with</span>
+                </div>
+            </div>
+
+            <!-- Form Content Block -->
+            @yield('form_content')
+            <div x-show="error" class="kt-alert kt-alert-destructive kt-alert-sm mt-2" id="login-error-alert">
+                <div class="kt-alert-icon">
+                    {{ icon('alert-circle') }}
+                </div>
+                <div class="kt-alert-title" x-text="error"></div>
+                <div class="kt-alert-toolbar">
+                    <button type="button" class="kt-alert-close" @click="error = null">
+                        {{ icon('x') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Side - Image/Graphics -->
+    <div class="hidden lg:flex lg:w-1/2 w-full bg-gradient-to-br from-stone-100 to-stone-200 dark:from-stone-900 dark:to-stone-800 items-center justify-center relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="relative w-full max-w-[90%] ">
+            <div class="absolute -top-20 -left-20 w-40 h-40 bg-stone-300 dark:bg-stone-700 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-70 animate-blob"></div>
+            <div class="absolute -bottom-20 -right-20 w-40 h-40 bg-stone-400 dark:bg-stone-600 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+            <div class="absolute top-0 -right-10 w-40 h-40 bg-stone-200 dark:bg-stone-800 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+
+            <div class="relative text-center px-6 mx-auto">
+                <h2 class="text-4xl font-bold mb-1 bg-gradient-to-r from-primary via-violet-600 to-indigo-600 bg-clip-text text-transparent">
+                    Build Faster. Scale Better.
+                </h2>
+                <p class="text-sm text-stone-600 dark:text-stone-400 mb-10  mx-auto">
+                    Enterprise-grade infrastructure with the simplicity you need to ship products at lightning speed.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white/80 dark:bg-stone-900/80 backdrop-blur p-5 rounded-xl border border-stone-200 dark:border-stone-700">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                {{ icon('rocket', library='tabler', css_class='text-primary', width=24, height=24) }}
+                            </div>
+                            <div class="text-left">
+                                <div class="text-2xl font-bold text-stone-900 dark:text-stone-100">10x</div>
+                                <div class="text-sm text-stone-600 dark:text-stone-400">Faster Deployment</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 dark:bg-stone-900/80 backdrop-blur p-5 rounded-xl border border-stone-200 dark:border-stone-700">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                {{ icon('shield-check', library='tabler', css_class='text-primary', width=24, height=24) }}
+                            </div>
+                            <div class="text-left">
+                                <div class="text-2xl font-bold text-stone-900 dark:text-stone-100">SOC2</div>
+                                <div class="text-sm text-stone-600 dark:text-stone-400">Type II Compliant</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 dark:bg-stone-900/80 backdrop-blur p-5 rounded-xl border border-stone-200 dark:border-stone-700">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                {{ icon('code', library='tabler', css_class='text-primary', width=24, height=24) }}
+                            </div>
+                            <div class="text-left">
+                                <div class="text-2xl font-bold text-stone-900 dark:text-stone-100">50+</div>
+                                <div class="text-sm text-stone-600 dark:text-stone-400">API Integrations</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/80 dark:bg-stone-900/80 backdrop-blur p-5 rounded-xl border border-stone-200 dark:border-stone-700">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                {{ icon('users', library='tabler', css_class='text-primary', width=24, height=24) }}
+                            </div>
+                            <div class="text-left">
+                                <div class="text-2xl font-bold text-stone-900 dark:text-stone-100">24/7</div>
+                                <div class="text-sm text-stone-600 dark:text-stone-400">Expert Support</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

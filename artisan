@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+"""
+Artisan - Laravel-style CLI for the Framework
+Entry point for all CLI commands
+"""
+
+import asyncio
+import sys
+import os
+
+# Setup path before imports
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+
+
+# Install beautiful CLI error handler
+from larasanic.exceptions import install_cli_error_handler
+install_cli_error_handler()
+
+from larasanic.console import Artisan
+
+async def main():
+	"""Main entry point"""
+	# Check for --fresh flag to bypass cache
+	use_cache = '--fresh' not in sys.argv
+	if not use_cache:
+		sys.argv.remove('--fresh')
+
+	artisan = Artisan(use_cache=use_cache)
+	exit_code = await artisan.run(sys.argv)
+	sys.exit(exit_code)
+
+if __name__ == "__main__":
+	asyncio.run(main())

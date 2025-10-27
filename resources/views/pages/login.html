@@ -1,0 +1,73 @@
+@extends('layouts/auth')
+
+@section('alpine_component')
+loginComponent()
+@endsection
+
+@section('form_title')
+Welcome back
+@endsection
+
+@section('form_subtitle')
+Enter your credentials to access your account
+@endsection
+
+@section('form_footer')
+<span class="text-sm text-muted-foreground">
+    Need an account?
+</span>
+<a class="text-sm font-semibold text-primary hover:text-primary/80 transition-colors ml-1.5 cursor-pointer"
+   @click="$store.routerStore.navigate('/register')">
+    Sign up
+</a>
+@endsection
+
+@section('form_content')
+<!-- Form -->
+<form @submit.prevent="handleLogin" class="space-y-4 kt-form">
+    <!-- Email Field -->
+    <div class="kt-form-item">
+        <label class="kt-form-label">
+            Email
+        </label>
+        <div class="kt-form-control">
+            <div class="kt-input">
+                {{ icon('mail', css_class='text-muted-foreground') }}
+                <input class="kt-input" placeholder="email@email.com" x-model="form.email" id="email" name="email" type="email">
+            </div>
+        </div>
+    </div>
+    <!-- Password Field -->
+    <div class="kt-form-item">
+        <label class="kt-form-label">
+            Password
+        </label>
+        <div class="kt-input" data-kt-toggle-password="true" data-kt-toggle-password-initialized="true">
+            {{ icon('lock', css_class='text-muted-foreground') }}
+            <input x-model="form.password" name="password" placeholder="Enter Password" type="password" value="">
+            <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5" data-kt-toggle-password-trigger="true" type="button">
+                <span class="kt-toggle-password-active:hidden">
+                {{ icon('eye', css_class='text-muted-foreground') }}
+                </span>
+                <span class="hidden kt-toggle-password-active:block">
+                {{ icon('eye-off', css_class='text-muted-foreground') }}
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit"
+            :disabled="loading"
+            class="kt-btn kt-btn-lg kt-btn-primary flex justify-center grow w-full">
+        <span x-show="!loading" class="flex items-center justify-center">
+            {{ icon('login', css_class='mr-2') }}
+            Sign In
+        </span>
+        <span x-show="loading" class="flex items-center justify-center">
+            <div class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
+            Signing In...
+        </span>
+    </button>
+</form>
+@endsection

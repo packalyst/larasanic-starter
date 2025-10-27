@@ -1,0 +1,107 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+storage/logs/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+storage/database/
+
+# Application Storage
+storage/
+!storage/.gitkeep
+
+# Environment
+.env
+.env.backup
+
+# Cache
+storage/larasanic/cache/
+*.cache
+
+# Sessions
+storage/larasanic/sessions/
+
+# Keys & Secrets
+storage/larasanic/keys/
+*.pem
+*.key
+private_key.pem
+public_key.pem
+
+# Aerich
+aerich.ini
+
+# Node modules (if using frontend build tools)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Compiled assets (if building frontend)
+public/dist/
+public/build/

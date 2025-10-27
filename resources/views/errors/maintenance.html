@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased dark:bg-zinc-950 dark:text-zinc-200">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scheduled Maintenance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      .motion-safe\:transition-all { transition: none !important; }
+    }
+  </style>
+</head>
+<body class="h-full bg-zinc-50 text-zinc-800 selection:bg-zinc-300/60 dark:bg-zinc-950 dark:text-zinc-200">
+  <main class="min-h-full grid place-items-center p-6">
+    <div class="relative w-full max-w-xl">
+      <div class="pointer-events-none absolute inset-0 -z-10 blur-2xl opacity-40 dark:opacity-30"
+           aria-hidden="true"
+           style="background:
+             radial-gradient(1200px 300px at 50% -80%, rgba(0,0,0,0.06), transparent 60%),
+             radial-gradient(1200px 300px at 50% 130%, rgba(0,0,0,0.06), transparent 60%);">
+      </div>
+
+      <section class="rounded-2xl border border-zinc-200/80 bg-white/60 backdrop-blur md:p-10 p-8 shadow-sm dark:bg-zinc-900/40 dark:border-zinc-800">
+        <!-- header -->
+        <div class="flex items-center gap-4">
+          <div class="size-14 rounded-xl border border-zinc-200/70 bg-white grid place-items-center dark:border-zinc-800 dark:bg-zinc-900">
+            <!-- tiny animated worker (same as before) -->
+            <svg width="36" height="36" viewBox="0 0 120 120" fill="none" aria-hidden="true"
+                 class="text-zinc-700 dark:text-zinc-200">
+              <rect x="10" y="92" width="100" height="6" rx="3" class="fill-current opacity-20"></rect>
+              <circle cx="48" cy="42" r="10" class="fill-current opacity-90"></circle>
+              <rect x="40" y="52" width="16" height="28" rx="3" class="fill-current opacity-90"></rect>
+              <rect x="40" y="80" width="6" height="12" rx="2" class="fill-current opacity-90"></rect>
+              <rect x="50" y="80" width="6" height="12" rx="2" class="fill-current opacity-90"></rect>
+              <rect x="30" y="56" width="14" height="6" rx="3" class="fill-current opacity-80"></rect>
+              <g transform="translate(48,58)">
+                <circle cx="0" cy="0" r="2" class="fill-current opacity-60"></circle>
+                <g>
+                  <rect x="2" y="-2" width="20" height="4" rx="2" class="fill-current opacity-90"></rect>
+                  <rect x="18" y="-1.5" width="26" height="3" rx="1.5" class="fill-current opacity-80"></rect>
+                  <path d="M 44 -6 L 54 -1.5 L 44 3" class="fill-current opacity-90"></path>
+                  <animateTransform attributeName="transform" attributeType="XML" type="rotate"
+                    values="0 0 0; -35 0 0; 0 0 0" keyTimes="0; .5; 1" dur="1.2s" repeatCount="indefinite"/>
+                </g>
+              </g>
+              <g>
+                <circle cx="86" cy="90" r="2" class="fill-current opacity-25">
+                  <animate attributeName="r" values="1;4;1" dur="1.2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;0;0.4" dur="1.2s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="92" cy="92" r="1.5" class="fill-current opacity-25">
+                  <animate attributeName="r" values="1;3;1" dur="1.2s" begin=".2s" repeatCount="indefinite"/>
+                  <animate attributeName="opacity" values="0.4;0;0.4" dur="1.2s" begin=".2s" repeatCount="indefinite"/>
+                </circle>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-xl font-semibold tracking-tight md:text-2xl">We’re doing some work</h1>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400">Scheduled maintenance to improve stability and performance.</p>
+          </div>
+        </div>
+
+        <!-- status -->
+        <div class="mt-6 space-y-3">
+          <div class="flex items-center justify-between text-sm">
+            <span class="text-zinc-600 dark:text-zinc-400">Status</span>
+            <span class="inline-flex items-center gap-2">
+              <span class="size-2 rounded-full bg-amber-500"></span>
+              <span class="font-medium text-zinc-800 dark:text-zinc-200">In progress</span>
+            </span>
+          </div>
+
+          <div class="h-2 w-full rounded-full bg-zinc-200 dark:bg-zinc-800 overflow-hidden">
+            <div id="progressFill"
+                 class="h-full w-[10%] bg-zinc-700 dark:bg-zinc-300 motion-safe:transition-all"
+                 style="transition-duration: 600ms;"></div>
+          </div>
+
+          <p class="text-sm text-zinc-600 dark:text-zinc-400">
+            Estimated time: <span id="etaText" class="font-medium text-zinc-800 dark:text-zinc-200">~30–60 min</span>.
+          </p>
+        </div>
+
+        <!-- actions -->
+        <div class="mt-8 flex flex-wrap items-center gap-3">
+          <button type="button"
+                  onclick="location.reload()"
+                  class="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium
+                         bg-zinc-900 text-white hover:bg-zinc-800 active:bg-zinc-900
+                         dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-200">
+            Refresh
+          </button>
+          <a href="mailto:support@example.com"
+             class="text-sm text-zinc-700 underline underline-offset-4 hover:no-underline dark:text-zinc-300">
+            Contact support
+          </a>
+          <span class="ml-auto text-xs text-zinc-500 dark:text-zinc-400">Code: 503 Service Unavailable</span>
+        </div>
+
+        <div class="mt-6 rounded-lg border border-dashed border-zinc-200 p-4 text-xs text-zinc-600 dark:border-zinc-800 dark:text-zinc-400">
+          For updates, check our status page: <span class="font-medium">status.example.com</span>
+        </div>
+      </section>
+
+      <p class="mt-6 text-center text-xs text-zinc-500 dark:text-zinc-400">
+        © <span id="year"></span> Example LLC. All rights reserved.
+      </p>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---- Dynamic Progress & ETA (fake, monotonic, capped) ----
+    (function () {
+      const progressEl = document.getElementById('progressFill');
+      const etaEl = document.getElementById('etaText');
+
+      // Config knobs
+      const START_MIN = 5;     // initial % range
+      const START_MAX = 25;
+      const CAP_MIN   = 90;    // never reach 100
+      const CAP_MAX   = 97;
+      const ETA_MIN_MIN = 10;  // initial ETA window in minutes
+      const ETA_MIN_MAX = 25;
+      const ETA_MAX_MIN = 35;
+      const ETA_MAX_MAX = 60;
+
+      const TICK_MS_MIN = 2200;   // tick interval range
+      const TICK_MS_MAX = 6800;
+
+      // Floors to prevent "done" look
+      const ETA_FLOOR_MIN = 2;   // min floor minutes (lower bound)
+      const ETA_FLOOR_MAX = 5;   // min floor minutes (upper bound)
+
+      // Initial state (fresh each reload)
+      let progress = rand(START_MIN, START_MAX);            // %
+      const cap = rand(CAP_MIN, CAP_MAX);                   // %
+      let etaFloor = rand(ETA_FLOOR_MIN, ETA_FLOOR_MAX);    // minutes
+      let etaMin = rand(ETA_MIN_MIN, ETA_MIN_MAX);          // '~x–y'
+      let etaMax = rand(ETA_MAX_MIN, ETA_MAX_MAX);
+
+      // Normalize window
+      if (etaMin >= etaMax) etaMax = etaMin + rand(10, 25);
+
+      // Track elapsed time to reduce ETA window gradually
+      const startTs = Date.now();
+
+      function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+      function randFloat(min, max) { return Math.random() * (max - min) + min; }
+      function clamp(v, lo, hi) { return Math.min(hi, Math.max(lo, v)); }
+
+      function setProgress(p) {
+        progress = clamp(p, 0, cap - 0.2); // never reach cap exactly
+        progressEl.style.width = progress.toFixed(2) + '%';
+      }
+
+      function setETA() {
+        // Reduce both ends slowly over time, but never below floor window
+        const elapsedMin = (Date.now() - startTs) / 60000; // minutes
+        const decay = Math.min(elapsedMin * 0.8, 20);      // soften the drop
+
+        let low = Math.max(etaFloor, Math.round(etaMin - decay));
+        let high = Math.max(etaFloor + 1, Math.round(etaMax - decay));
+
+        // Keep window at least 1–2 mins wide
+        if (high - low < 1) high = low + 1;
+
+        // If near cap, hover around floor range
+        if (progress > cap - 3) {
+          low = Math.max(etaFloor, low);
+          high = Math.max(low + 1, etaFloor + 2);
+        }
+        etaEl.textContent = `~${low}–${high} min`;
+      }
+
+      function nextIncrement() {
+        // Easing: smaller increments as we approach cap
+        const distance = Math.max(0, cap - progress);
+        const base = distance > 30 ? randFloat(1.0, 3.5)
+                  : distance > 15 ? randFloat(0.6, 2.0)
+                  : distance > 8  ? randFloat(0.4, 1.2)
+                  :                  randFloat(0.2, 0.7);
+
+        // Occasional micro-burst early on
+        const burst = (progress < 35 && Math.random() < 0.15) ? randFloat(1.5, 3.0) : 0;
+        return Math.min(base + burst, distance * 0.6);
+      }
+
+      function tick() {
+        // Only move forward; never exceed cap
+        if (progress < cap - 0.2) {
+          setProgress(progress + nextIncrement());
+        } else {
+          // tiny idle jiggle up to cap-ε
+          setProgress(progress + randFloat(0.02, 0.08));
+        }
+        setETA();
+
+        // Schedule next tick
+        const next = rand(TICK_MS_MIN, TICK_MS_MAX);
+        timer = setTimeout(tick, next);
+      }
+
+      // Init
+      setProgress(progress);
+      setETA();
+
+      // Respect reduce motion by disabling CSS transition class
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        progressEl.style.transition = 'none';
+      }
+
+      // Run
+      let timer = setTimeout(tick, rand(TICK_MS_MIN, TICK_MS_MAX));
+
+      // If tab goes hidden for a while, jump a bit forward when returning
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && progress < cap - 0.2) {
+          setProgress(progress + randFloat(0.5, 2.0));
+          setETA();
+        }
+      });
+
+      // Safety: clear timer on unload
+      window.addEventListener('beforeunload', () => { clearTimeout(timer); });
+    })();
+  </script>
+</body>
+</html>

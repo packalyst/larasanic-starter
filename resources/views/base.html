@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="icon" href="data:,">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@yield('title', 'Sanic Framework')</title>
+        <link rel="stylesheet" href="/static/dist/css/main.css">
+        @if(auth)
+            <script>window.INITIAL_AUTH_STATE = {!! auth().user_as_json() !!};window.INITIAL_PARTIAL = "{{ initial_partial }}";</script>
+        @endif
+        @yield('head')
+    </head>
+    <body class="bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 text-sm min-h-screen" x-data="">
+        @include('components/loading')
+
+        <!-- SPA Content Container -->
+        <div id="spa-content">
+            {!! initial_content  !!}
+        </div>
+
+        <script src="/static/dist/js/main.js"></script>
+    </body>
+</html>

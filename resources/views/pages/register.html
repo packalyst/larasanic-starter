@@ -1,0 +1,143 @@
+@extends('layouts/auth')
+
+@section('alpine_component')
+registerComponent()
+@endsection
+
+@section('form_title')
+Create account
+@endsection
+
+@section('form_subtitle')
+Enter your details to create a new account
+@endsection
+
+@section('form_footer')
+<span class="text-sm text-muted-foreground">
+    Already have an account?
+</span>
+<a class="text-sm font-semibold text-primary hover:text-primary/80 transition-colors ml-1.5 cursor-pointer"
+   @click="$store.routerStore.navigate('/login')">
+    Sign in
+</a>
+@endsection
+
+@section('form_content')
+<!-- Form -->
+<form @submit.prevent="handleRegister" class="space-y-4 kt-form">
+    <!-- Name Fields - Two columns -->
+    <div class="grid grid-cols-2 gap-4">
+        <!-- First Name Field -->
+        <div class="kt-form-item">
+            <label class="kt-form-label">
+                First Name
+            </label>
+            <div class="kt-form-control">
+                <div class="kt-input">
+                    {{ icon('user', css_class='text-muted-foreground') }}
+                    <input class="kt-input" placeholder="John" x-model="form.firstName" id="firstName" name="firstName" type="text">
+                </div>
+            </div>
+        </div>
+
+        <!-- Last Name Field -->
+        <div class="kt-form-item">
+            <label class="kt-form-label">
+                Last Name
+            </label>
+            <div class="kt-form-control">
+                <div class="kt-input">
+                    {{ icon('user', css_class='text-muted-foreground') }}
+                    <input class="kt-input" placeholder="Doe" x-model="form.lastName" id="lastName" name="lastName" type="text">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Email Field - Full width -->
+    <div class="kt-form-item">
+        <label class="kt-form-label">
+            Email
+        </label>
+        <div class="kt-form-control">
+            <div class="kt-input">
+                {{ icon('mail', css_class='text-muted-foreground') }}
+                <input class="kt-input" placeholder="email@email.com" x-model="form.email" id="email" name="email" type="email">
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Fields - Two columns -->
+    <div class="grid grid-cols-2 gap-4">
+        <!-- Password Field -->
+        <div class="kt-form-item">
+            <label class="kt-form-label">
+                Password
+            </label>
+            <div class="kt-input" data-kt-toggle-password="true" data-kt-toggle-password-initialized="true">
+                {{ icon('lock', css_class='text-muted-foreground') }}
+                <input x-model="form.password" name="password" placeholder="Enter Password" type="password" value="">
+                <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5" data-kt-toggle-password-trigger="true" type="button">
+                    <span class="kt-toggle-password-active:hidden">
+                    {{ icon('eye', css_class='text-muted-foreground') }}
+                    </span>
+                    <span class="hidden kt-toggle-password-active:block">
+                    {{ icon('eye-off', css_class='text-muted-foreground') }}
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Confirm Password Field -->
+        <div class="kt-form-item">
+            <label class="kt-form-label">
+                Confirm Password
+            </label>
+            <div class="kt-input" data-kt-toggle-password="true" data-kt-toggle-password-initialized="true">
+                {{ icon('lock', css_class='text-muted-foreground') }}
+                <input x-model="form.confirmPassword" name="confirmPassword" placeholder="Confirm Password" type="password" value="">
+                <button class="kt-btn kt-btn-sm kt-btn-ghost kt-btn-icon bg-transparent! -me-1.5" data-kt-toggle-password-trigger="true" type="button">
+                    <span class="kt-toggle-password-active:hidden">
+                    {{ icon('eye', css_class='text-muted-foreground') }}
+                    </span>
+                    <span class="hidden kt-toggle-password-active:block">
+                    {{ icon('eye-off', css_class='text-muted-foreground') }}
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms and Conditions -->
+    <div class="kt-form-item">
+        <div class="flex items-start">
+            <div class="flex items-center h-5">
+                <input x-model="form.acceptTerms" id="acceptTerms" name="acceptTerms" type="checkbox"
+                       class="w-4 h-4 text-primary bg-background border-border rounded focus:ring-primary focus:ring-2">
+            </div>
+            <div class="ml-3 text-sm">
+                <label for="acceptTerms" class="text-muted-foreground">
+                    I agree to the
+                    <a href="#" class="text-primary hover:text-primary/80 transition-colors">Terms and Conditions</a>
+                    and
+                    <a href="#" class="text-primary hover:text-primary/80 transition-colors">Privacy Policy</a>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit"
+            :disabled="loading || !form.acceptTerms"
+            class="kt-btn kt-btn-lg kt-btn-primary flex justify-center grow w-full">
+        <span x-show="!loading" class="flex items-center justify-center">
+            {{ icon('user-plus', css_class='mr-2') }}
+            Create Account
+        </span>
+        <span x-show="loading" class="flex items-center justify-center">
+            <div class="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
+            Creating Account...
+        </span>
+    </button>
+</form>
+@endsection
