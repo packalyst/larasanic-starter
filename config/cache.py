@@ -21,12 +21,6 @@ CACHE_STORES = {
         'driver': 'redis',
         'url': env('REDIS_URL', 'redis://localhost:6379/0'),
     },
-
-    # Redis session store (separate database)
-    'sessions': {
-        'driver': 'redis',
-        'url': env('REDIS_SESSION_URL', 'redis://localhost:6379/1'),
-    },
 }
 
 # Get the default store configuration
