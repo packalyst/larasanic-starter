@@ -18,6 +18,17 @@ services:
       - APP_DEBUG=true
       - CACHE_DRIVER=redis
       - REDIS_URL=redis://:${REDIS_PASSWORD:-changeme}@redis:6379/0
+      - SETUP_MODE=${SETUP_MODE:-false}
+    # Keep container running if SETUP_MODE=true, otherwise run app
+    command: >
+      sh -c "
+      if [ \"$$SETUP_MODE\" = \"true\" ]; then
+        echo 'Container running in setup mode. Run: docker exec -it larasanic_app python artisan app:setup';
+        tail -f /dev/null;
+      else
+        python main.py;
+      fi
+      "
     restart: unless-stopped
     networks:
       - larasanic_network

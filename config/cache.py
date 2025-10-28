@@ -2,11 +2,11 @@
 Cache Configuration
 Configure cache drivers and stores
 """
-from larasanic.support.env_helper import env
+from larasanic.support.env_helper import EnvHelper
 
 # Default cache driver
 # Options: 'file', 'redis'
-CACHE_DRIVER = env('CACHE_DRIVER', 'file')
+CACHE_DRIVER = EnvHelper.get('CACHE_DRIVER', 'file')
 
 # Cache stores configuration
 CACHE_STORES = {
@@ -19,7 +19,7 @@ CACHE_STORES = {
     # Redis cache (recommended for production)
     'redis': {
         'driver': 'redis',
-        'url': env('REDIS_URL', 'redis://localhost:6379/0'),
+        'url': EnvHelper.get('REDIS_URL', 'redis://localhost:6379/0'),
     },
 }
 
